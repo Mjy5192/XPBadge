@@ -53,6 +53,8 @@ const styles = `
 
 var widget = document.createElement('div');
 widget.id = "badge";
+document.getElementsByTagName('body')[0].appendChild(widget);
+
 widget.innerHTML = `
       <p id="psupos">
         ${psu}
@@ -65,26 +67,8 @@ widget.innerHTML = `
            Current XP: 
          </p>
        </header>`
-document.getElementsByTagName('body')[0].appendChild(widget);
 
 
-document.querySelector('#app').innerHTML = `
-
-    <div id="badge">
-      <p id="psupos">
-      ${psu}
-      </p>
-      <header id="info">
-        <h1 id="class">
-          GAME-140
-        </h1>
-        <p id='xp'>
-          Current XP: 
-        </p>
-      </header>
-    </div >
-    
-`
 const styleTag = document.createElement("style");
 styleTag.innerHTML = styles.replace(/^\s+|\n/gm, "");
 document.head.appendChild(styleTag);
