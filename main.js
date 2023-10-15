@@ -2,7 +2,7 @@ const psu = `<svg id="Penn_State_Logo" data-name="Penn State Logo" xmlns="http:/
 
 const styles = `
 
-#badge {
+#XPBadge {
   border-radius: 25px;
   background: #22209e;
   padding: 20px; 
@@ -14,7 +14,7 @@ const styles = `
   margin: 10px;
 }
 
-#psupos {
+#psuPos {
   position: relative;
 }
 
@@ -26,7 +26,7 @@ const styles = `
   left: -25px;
 }
 
-#class {
+#psuClass {
   position: relative;
   color: white;
   font-family: Verdana, sans-serif;
@@ -36,7 +36,7 @@ const styles = `
   font-size: small;
 }
 
-#xp {
+#xpCount {
   position: relative;
   color: white;
   font-family: Verdana, sans-serif;
@@ -45,25 +45,25 @@ const styles = `
   font-size: x-small;
 }
 
-#info {
+#badgeInfo {
   position: relative;
 }
 
 `
 
 var widget = document.createElement('div');
-widget.id = "badge";
+widget.id = "XPBadge";
 document.getElementsByTagName('body')[0].appendChild(widget);
 
 widget.innerHTML = `
-      <p id="psupos">
+      <p id="psuPos">
         ${psu}
        </p>
-       <header id="info">
-         <h1 id="class">
+       <header id="badgeInfo">
+         <h1 id="psuClass">
            GAME-140
          </h1>
-         <p id='xp'>
+         <p id='xpCount'>
            Current XP: 
          </p>
        </header>`
@@ -74,18 +74,19 @@ styleTag.innerHTML = styles.replace(/^\s+|\n/gm, "");
 document.head.appendChild(styleTag);
   
 
-var func = document.createElement('script');
-func.innerHTML = `
-function XPBadge(myObj) {
-  console.log(myObj.title);
-  document.getElementById("xp").innerHTML += myObj.title;
+var callbackFunc = document.createElement('script');
+callbackFunc.innerHTML = `
+function XPBadge(xpOBJ) {
+  console.log(xpOBJ);
+  document.getElementById("xpCount").innerHTML += xpOBJ.xpVal;
 } 
 `
 
 var script = document.createElement('script');
-script.src = 'http://localhost:3001/user?name=test&callback=XPBadge'
+var studentName = document.getElementById("embedScript").getAttribute("studentname");
+script.src = `https://xpbadgeserver.onrender.com/user?name=${studentName}&callback=XPBadge`
 
 document.getElementsByTagName('head')[0].appendChild(script);
-document.getElementsByTagName('head')[0].appendChild(func);
+document.getElementsByTagName('head')[0].appendChild(callbackFunc);
 
 
